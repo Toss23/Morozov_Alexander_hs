@@ -7,21 +7,25 @@ public class Points : MonoBehaviour
     [SerializeField] private Map _map;
     [SerializeField] private int _pointsCount;
     [SerializeField] private float _distanceMin;
-    private List<Vector2> _pointsPosition;
+    private List<Point> _points;
 
     private void Awake()
     {
         if (_pointsCount > 0)
         {
-            _pointsPosition = new List<Vector2>();
-            _pointsPosition.Add(RandomPosition());
+            _points = new List<Point>();
+
+            Point firstPoint = new Point();
+            firstPoint.RandomPosition(_map.Size);
+            _points.Add(firstPoint);
+
             for (int i = 1; i < _pointsCount; i++)
             {
                 int iteration = 0;
-                Vector2 point;
+                Point point = new Point();
                 do
                 {
-                    point = RandomPosition();
+                    point.RandomPosition(_map.Size);
                     iteration++;
                     if (iteration >= 1000)
                     {
@@ -34,32 +38,30 @@ public class Points : MonoBehaviour
                 if (iteration >= 1000)
                     break;
 
-                _pointsPosition.Add(point);
+                _points.Add(point);
             }
 
-            foreach (Vector2 position in _pointsPosition)
+            foreach (Point point in _points)
             {
                 GameObject pointObject = Instantiate(_pointPrefab);
-                pointObject.transform.position = new Vector3(position.x, pointObject.transform.position.y, position.y);
+                pointObject.transform.position = new Vector3(point.Position.x, pointObject.transform.position.y, point.Position.y);
                 pointObject.transform.SetParent(transform);
                 pointObject.name = "Point";
             }
         }
     }
 
-    private Vector2 RandomPosition()
+    public Point GetRandomPoint()
     {
-        float x = Random.Range(0, _map.Size.x);
-        float y = Random.Range(0, _map.Size.y);
-        Vector2 point = new Vector2(x, y);
-        return point;
+        int randomIndex = Random.Range(0, _points.Count);
+        return _points.ToArray()[randomIndex];
     }
 
-    private bool CheckDistanceWithPoints(Vector2 point, float distanceMin)
+    private bool CheckDistanceWithPoints(Point newPoint, float distanceMin)
     {
-        foreach (Vector2 vector in _pointsPosition)
+        foreach (Point point in _points)
         {
-            if (Vector2.Distance(vector, point) < distanceMin)
+            if (Vector2.Distance(newPoint.Position, point.Position) < distanceMin)
                 return false;
         }
         return true;

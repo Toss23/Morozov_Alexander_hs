@@ -4,22 +4,17 @@ public class Base : MonoBehaviour
 {
     [SerializeField] private GameObject _basePrefab;
     [SerializeField] private Map _map;
-    private Vector2 _basePosition;
+    private Point _basePoint;
+
+    public Vector2 Position { get { return _basePoint.Position; } }
 
     private void Awake()
     {
-        _basePosition = RandomPosition();
+        _basePoint = new Point();
+        _basePoint.RandomPosition(_map.Size);
         GameObject baseObject = Instantiate(_basePrefab);
-        baseObject.transform.position = new Vector3(_basePosition.x, baseObject.transform.position.y, _basePosition.y);
+        baseObject.transform.position = new Vector3(_basePoint.Position.x, baseObject.transform.position.y, _basePoint.Position.y);
         baseObject.transform.SetParent(transform);
         baseObject.name = "Base";
-    }
-
-    private Vector2 RandomPosition()
-    {
-        float x = Random.Range(0, _map.Size.x);
-        float y = Random.Range(0, _map.Size.y);
-        Vector2 point = new Vector2(x, y);
-        return point;
     }
 }
