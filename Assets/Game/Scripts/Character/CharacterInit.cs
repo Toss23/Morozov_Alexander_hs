@@ -22,12 +22,14 @@ public class CharacterInit : MonoBehaviour
         _character = Instantiate(_characterPrefab);
         _character.name = "Character";
         _character.Init(_base.Position, _points, _base);
+        _character.Enable();
 
         Enable();
     }
 
     public void Enable()
     {
+        _character.Damagable.OnDamaged += (hp, hpMax) => _characterView.HpBar.SetProgress(hp, hpMax);
         _characterView.OnClickIdle += () => _character.SetState(_idleState);
         _characterView.OnClickPatrolling += () => _character.SetState(_patrollingState);
         _characterView.OnClickReturnToBase += () => _character.SetState(_returnToBaseState);
@@ -35,6 +37,7 @@ public class CharacterInit : MonoBehaviour
 
     public void Disable()
     {
+        _character.Damagable.OnDamaged -= (hp, hpMax) => _characterView.HpBar.SetProgress(hp, hpMax);
         _characterView.OnClickIdle -= () => _character.SetState(_idleState);
         _characterView.OnClickPatrolling -= () => _character.SetState(_patrollingState);
         _characterView.OnClickReturnToBase -= () => _character.SetState(_returnToBaseState);

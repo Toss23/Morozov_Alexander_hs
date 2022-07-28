@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 1882468195836241138}
   - component: {fileID: 1882468195836241137}
   - component: {fileID: 1882468195836241136}
+  - component: {fileID: 8201224885573917853}
   - component: {fileID: 1882468195836241135}
   - component: {fileID: 1882468195836241134}
+  - component: {fileID: 7447551965110634188}
   - component: {fileID: 1882468195836241133}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +86,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8201224885573917853
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882468195836241132}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!111 &1882468195836241135
 Animation:
   m_ObjectHideFlags: 0
@@ -113,6 +128,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movespeed: 4
+--- !u!114 &7447551965110634188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882468195836241132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 071cd9c96415a2b41b25013f5b0aa785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hpMax: 10
+  _damageOnTouch: 1
 --- !u!114 &1882468195836241133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,5 +156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _idleAnimation: {fileID: 1882468195836241135}
   _movable: {fileID: 1882468195836241134}
+  _damagable: {fileID: 7447551965110634188}
   _startState: {fileID: 11400000, guid: 424ad605a99b64a4a8c4bca98884f18c, type: 2}
   _deathState: {fileID: 11400000, guid: e926e001109c43e4aa76e5c2cfe22cad, type: 2}

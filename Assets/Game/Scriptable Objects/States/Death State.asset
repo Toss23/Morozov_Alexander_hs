@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Death State
   m_EditorClassIdentifier: 
   _stateOnFinish: {fileID: 0}
-  canBeStoped: 0
+  _canBeFinished: 0
